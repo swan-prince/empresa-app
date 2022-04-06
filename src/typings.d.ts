@@ -1,45 +1,71 @@
-export interface AuthForm {
-  company: string;
-  password?: string;
+import React from "react";
+
+export interface MenuItemProps {
+  label: string;
+  data: string;
 }
 
-export interface UploadedFile {
+export interface BeneficiaryForm {
   name: string;
-  fileType: string;
-  preview: string;
-}
-
-export interface ProfileForm {
-  name: string;
+  nif: string;
+  mobile: string;
+  address: string;
+  city: string;
+  postal_code: string;
   email: string;
+  gender: string;
+  birth_date: string | null;
+  cc: string;
+  customerNumber: string;
 }
-
-export interface Client {
-  id: number;
-  sme: string;
+export interface InsuredAssetData {
+  quoteId?: string;
+  protectedassetId?: string;
+  type: string;
+  model: string;
+  brand: string;
+  price: number | string;
+  serial_number?: string;
+}
+export interface InsuranceContextInterface {
+  insuredAssetDataList: Array<InsuredAssetData>;
+  rateBase: string;
+  quoteId: string;
+  fingerprint: string;
+  handleChangeAssetData: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<{ value: unknown }>, index: number) => void;
+  // updateProtectedData: (protectedData: InsuredAssetData) => void;
+  addNewQuoteForm: () => void;
+  setRateBase:(rateBase: string) => void;
+  setQuoteId: (quoteId: string) => void;
+  setFingerprint: (fingerprint: string) => void;
+  setProtectedDataSetId: (protectedassetId: string, index: number) => void;
+  removeProtectedAsset: (protectedAssetId: string, index: number) => void;
+}
+export interface ValidateForm {
+  purchaseData?: string;
+  invoice?: string;
+}
+export interface Document {
   name: string;
-  email: string;
+  uri: string;
+  description?: string;
 }
-
-export interface ContactForm {
-  business: string;
-  message: string;
-}
-
-export interface OfferForm {
-  qualification: string;
-  resume: string;
-  description: string;
-  duration: string;
-  originalPrice: string;
-  discountPrice: string;
-}
-
-export interface RequestItem {
+export interface QuoteAndPolicy {
   id: string;
-  clientName: string;
-  applicationDate: string;
-  condition: string;
-  expiresIn: string;
-  offer: string;
+  number: string;
+  product: string;
+  insured: string;
+  date: string;
+  state: string;  
+}
+export interface UrlParams {
+  policy_id: string;
+}
+export interface DetailDataItem {
+  namespace: string;
+  data: string;
+}
+export interface DeleteQuoteActionParams {
+  protectedDataId?: string;
+  index: number;
 }
