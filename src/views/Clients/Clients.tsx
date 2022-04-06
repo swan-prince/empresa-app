@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button'
 
 import CustomInput from 'components/CustomInput'
 import CustomPagination from 'components/CustomPagination'
+import MainLayout from 'components/MainLayout'
 
 import { dummyData } from 'assets/data/clients'
 import { Client } from 'typings'
@@ -85,101 +86,103 @@ const Clients: FC = () => {
   }, [])
 
   return (
-    <Box className={classes.wrapper}>
-      <Typography variant='h1'>
-        Clientes
-      </Typography>
-      <Box className={classes.contents}>
-        <Box className={classes.dataTable}>
-          <Box className={classes.filters} display='flex' mb={3}>
-            <Box className={classes.filterInput} width='26%'>
-              <CustomInput
-                name='sme'
-                labelText='RUT PYME'
-                placeholder=''
-                fullWidth
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src={SearchIcon} alt="Search" />
-                  </InputAdornment>
-                }
-              />
+    <MainLayout>
+      <Box className={classes.wrapper}>
+        <Typography variant='h1'>
+          Clientes
+        </Typography>
+        <Box className={classes.contents}>
+          <Box className={classes.dataTable}>
+            <Box className={classes.filters} display='flex' mb={3}>
+              <Box className={classes.filterInput} width='26%'>
+                <CustomInput
+                  name='sme'
+                  labelText='RUT PYME'
+                  placeholder=''
+                  fullWidth
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={SearchIcon} alt="Search" />
+                    </InputAdornment>
+                  }
+                />
+              </Box>
+              <Box className={classes.filterInput} width='30%'>
+                <CustomInput
+                  name='name'
+                  labelText='Nombre cliente'
+                  placeholder=''
+                  fullWidth
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={SearchIcon} alt="Search" />
+                    </InputAdornment>
+                  }
+                />
+              </Box>
+              <Box className={classes.filterInput} width='44%'>
+                <CustomInput
+                  name='email'
+                  labelText='CORREO cliente'
+                  placeholder=''
+                  fullWidth
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={SearchIcon} alt="Search" />
+                    </InputAdornment>
+                  }
+                />
+              </Box>
             </Box>
-            <Box className={classes.filterInput} width='30%'>
-              <CustomInput
-                name='name'
-                labelText='Nombre cliente'
-                placeholder=''
-                fullWidth
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src={SearchIcon} alt="Search" />
-                  </InputAdornment>
-                }
-              />
-            </Box>
-            <Box className={classes.filterInput} width='44%'>
-              <CustomInput
-                name='email'
-                labelText='CORREO cliente'
-                placeholder=''
-                fullWidth
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src={SearchIcon} alt="Search" />
-                  </InputAdornment>
-                }
-              />
-            </Box>
-          </Box>
 
-          <Box className={classes.tableBody}>
-            {
-              searchResult.length === 0 ? (
-                <Box className={classes.dataRow}>
-                  <Typography variant='body1' align='center'>
-                    There aren't any data
-                  </Typography>
-                </Box>
-              ) :
-                slice(searchResult, startIndex, endIndex).map((data) => (
-                  <Box className={classes.dataRow} display='flex' alignItems='center' key={data.id}>
-                    <Box className={classes.dataCell} width='26%'>
-                      <Typography variant='body1'>
-                        {data.sme}
-                      </Typography>
-                    </Box>
-                    <Box className={classes.dataCell} width='30%'>
-                      <Typography variant='body1'>
-                        {data.name}
-                      </Typography>
-                    </Box>
-                    <Box className={classes.dataCell} width='44%' display='flex' justifyContent='space-between' alignItems='center'>
-                      <Typography variant='body1'>
-                        {data.email}
-                      </Typography>
-                      <Button className={classes.detailBtn} onClick={() => navigate(`/admin/clients/${data.id}`)}>
-                        <VisibilityOutlinedIcon />
-                      </Button>
-                    </Box>
+            <Box className={classes.tableBody}>
+              {
+                searchResult.length === 0 ? (
+                  <Box className={classes.dataRow}>
+                    <Typography variant='body1' align='center'>
+                      There aren't any data
+                    </Typography>
                   </Box>
-                ))
-            }
-          </Box>
+                ) :
+                  slice(searchResult, startIndex, endIndex).map((data) => (
+                    <Box className={classes.dataRow} display='flex' alignItems='center' key={data.id}>
+                      <Box className={classes.dataCell} width='26%'>
+                        <Typography variant='body1'>
+                          {data.sme}
+                        </Typography>
+                      </Box>
+                      <Box className={classes.dataCell} width='30%'>
+                        <Typography variant='body1'>
+                          {data.name}
+                        </Typography>
+                      </Box>
+                      <Box className={classes.dataCell} width='44%' display='flex' justifyContent='space-between' alignItems='center'>
+                        <Typography variant='body1'>
+                          {data.email}
+                        </Typography>
+                        <Button className={classes.detailBtn} onClick={() => navigate(`/admin/clients/${data.id}`)}>
+                          <VisibilityOutlinedIcon />
+                        </Button>
+                      </Box>
+                    </Box>
+                  ))
+              }
+            </Box>
 
-          <Box className={classes.pagination} display='flex' justifyContent='center'>
-            <CustomPagination
-              count={Math.ceil(searchResult.length / pageSize)}
-              handleChange={onChangePagination}
-              page={page}
-            />
+            <Box className={classes.pagination} display='flex' justifyContent='center'>
+              <CustomPagination
+                count={Math.ceil(searchResult.length / pageSize)}
+                handleChange={onChangePagination}
+                page={page}
+              />
+            </Box>
           </Box>
         </Box>
-      </Box>      
-    </Box>
+      </Box>
+    </MainLayout>
   )
 }
 

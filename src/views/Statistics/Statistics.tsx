@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import ChartWidget from './components/ChartWidget'
+import MainLayout from 'components/MainLayout'
 
 import SlopesIcon from 'assets/img/slopes.png'
 import AcceptedIcon from 'assets/img/accepted.png'
@@ -35,81 +36,83 @@ const Statistics: FC = () => {
   };
 
   return (
-    <Box className={classes.wrapper}>
-      <Typography variant='h1'>
-        Estadísticas
-      </Typography>
-      <Box className={classes.contents}>
-        <Box className={classes.offers}>
-          <InputLabel>OFERTAS</InputLabel>
-          <FormControl variant="outlined">
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={offer}
-              onChange={handleChange}
-            >
-              <MenuItem value='Todas las ofertas'>Todas las ofertas</MenuItem>
-              <MenuItem value='Todas las ofertas 2'>Todas las ofertas 2</MenuItem>
-              <MenuItem value='Todas las ofertas 3'>Todas las ofertas 3</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Box className={classes.dateTab}>
-          <ButtonGroup color="primary" aria-label="outlined primary button group">
-            <Button onClick={() => setTab('day')} className={clsx({ [classes.activeTab]: tab === 'day' })}>Día</Button>
-            <Button onClick={() => setTab('week')} className={clsx({ [classes.activeTab]: tab === 'week' })}>Semana</Button>
-            <Button onClick={() => setTab('month')} className={clsx({ [classes.activeTab]: tab === 'month' })}>Mes</Button>
-            <Button onClick={() => setTab('year')} className={clsx({ [classes.activeTab]: tab === 'year' })}>Año</Button>
-          </ButtonGroup>
-        </Box>
-        <Typography variant='body1' className={classes.note}>
-          Así van tus solicitudes
+    <MainLayout>
+      <Box className={classes.wrapper}>
+        <Typography variant='h1'>
+          Estadísticas
         </Typography>
-        <Box className={classes.card} display='flex' justifyContent='space-between'>
-          <Box className={classes.chartCol}>
-            <Box className={classes.cardChart}>
-              <ChartWidget />
-            </Box>
-            <Typography variant='body1'>
-              TOTAL
-            </Typography>
-            <Typography variant='h5'>
-              48
-            </Typography>
+        <Box className={classes.contents}>
+          <Box className={classes.offers}>
+            <InputLabel>OFERTAS</InputLabel>
+            <FormControl variant="outlined">
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={offer}
+                onChange={handleChange}
+              >
+                <MenuItem value='Todas las ofertas'>Todas las ofertas</MenuItem>
+                <MenuItem value='Todas las ofertas 2'>Todas las ofertas 2</MenuItem>
+                <MenuItem value='Todas las ofertas 3'>Todas las ofertas 3</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
-          <Box className={classes.infors}>
-            <Box className={classes.info}>
-              <img src={SlopesIcon} alt="Slopes" width='42px' />
+          <Box className={classes.dateTab}>
+            <ButtonGroup color="primary" aria-label="outlined primary button group">
+              <Button onClick={() => setTab('day')} className={clsx({ [classes.activeTab]: tab === 'day' })}>Día</Button>
+              <Button onClick={() => setTab('week')} className={clsx({ [classes.activeTab]: tab === 'week' })}>Semana</Button>
+              <Button onClick={() => setTab('month')} className={clsx({ [classes.activeTab]: tab === 'month' })}>Mes</Button>
+              <Button onClick={() => setTab('year')} className={clsx({ [classes.activeTab]: tab === 'year' })}>Año</Button>
+            </ButtonGroup>
+          </Box>
+          <Typography variant='body1' className={classes.note}>
+            Así van tus solicitudes
+          </Typography>
+          <Box className={classes.card} display='flex' justifyContent='space-between'>
+            <Box className={classes.chartCol}>
+              <Box className={classes.cardChart}>
+                <ChartWidget />
+              </Box>
               <Typography variant='body1'>
-                PENDIENTES
+                TOTAL
               </Typography>
               <Typography variant='h5'>
-                30
+                48
               </Typography>
             </Box>
-            <Box className={classes.info}>
-              <img src={AcceptedIcon} alt="Slopes" width='42px' />
-              <Typography variant='body1'>
-                ACEPTADAS
-              </Typography>
-              <Typography variant='h5'>
-                15
-              </Typography>
-            </Box>
-            <Box className={classes.info}>
-              <img src={RejectIcon} alt="Slopes" width='42px' />
-              <Typography variant='body1'>
-                RECHAZADAS
-              </Typography>
-              <Typography variant='h5'>
-                3
-              </Typography>
+            <Box className={classes.infors}>
+              <Box className={classes.info}>
+                <img src={SlopesIcon} alt="Slopes" width='42px' />
+                <Typography variant='body1'>
+                  PENDIENTES
+                </Typography>
+                <Typography variant='h5'>
+                  30
+                </Typography>
+              </Box>
+              <Box className={classes.info}>
+                <img src={AcceptedIcon} alt="Slopes" width='42px' />
+                <Typography variant='body1'>
+                  ACEPTADAS
+                </Typography>
+                <Typography variant='h5'>
+                  15
+                </Typography>
+              </Box>
+              <Box className={classes.info}>
+                <img src={RejectIcon} alt="Slopes" width='42px' />
+                <Typography variant='body1'>
+                  RECHAZADAS
+                </Typography>
+                <Typography variant='h5'>
+                  3
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+    </MainLayout>
   )
 }
 

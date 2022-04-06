@@ -42,7 +42,7 @@ const Login: VFC = () => {
 
   const onHandleSubmit = (data: AuthForm) => {
     localStorage.setItem('loggedIn', 'true')
-    navigate('/admin')
+    navigate('/admin/welcome')
   }
 
   return (

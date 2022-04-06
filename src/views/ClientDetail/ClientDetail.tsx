@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import DetailHeader from 'components/DetailHeader'
 import DetailCard from 'components/DetailCard'
 import ContactEmailDialog from 'components/ContactEmailDialog'
+import MainLayout from 'components/MainLayout'
 
 import { Client } from 'typings'
 
@@ -35,50 +36,52 @@ const ClientDetail: FC = () => {
   }, [id])
 
   return (
-    <Box>
-      <DetailHeader
-        title='Detalle de cliente'
-        handleReturn={() => navigate('/admin/requests')}
-      />
-      <Box className={classes.contentSection}>
-        <Box className={classes.contents}>
-          <Box className={classes.infos}>
-            <Typography variant='h3'>
-              COMERCIAL ECRAT SPA
-            </Typography>
-            <Typography variant='h4'>
-              { client?.sme ?? '' }
-            </Typography>
-            <Box>
-              <Typography variant='body1'>
-                { client?.name ?? ''}
+    <MainLayout>
+      <Box>
+        <DetailHeader
+          title='Detalle de cliente'
+          handleReturn={() => navigate('/admin/requests')}
+        />
+        <Box className={classes.contentSection}>
+          <Box className={classes.contents}>
+            <Box className={classes.infos}>
+              <Typography variant='h3'>
+                COMERCIAL ECRAT SPA
               </Typography>
-              <Typography variant='body1'>
-                { client?.email ?? ''}
+              <Typography variant='h4'>
+                {client?.sme ?? ''}
               </Typography>
+              <Box>
+                <Typography variant='body1'>
+                  {client?.name ?? ''}
+                </Typography>
+                <Typography variant='body1'>
+                  {client?.email ?? ''}
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-          <Box className={classes.cards}>
-            <Box className={classes.detailCard}>
-              <DetailCard
-                request={requests[0]}
-                handleOpenContact={() => setOpenContactForm(true)}
-              />
-            </Box>
-            <Box className={classes.detailCard}>
-              <DetailCard
-                request={requests[1]}
-                handleOpenContact={() => setOpenContactForm(true)}
-              />
+            <Box className={classes.cards}>
+              <Box className={classes.detailCard}>
+                <DetailCard
+                  request={requests[0]}
+                  handleOpenContact={() => setOpenContactForm(true)}
+                />
+              </Box>
+              <Box className={classes.detailCard}>
+                <DetailCard
+                  request={requests[1]}
+                  handleOpenContact={() => setOpenContactForm(true)}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
+        <ContactEmailDialog
+          open={openContactForm}
+          handleClose={() => setOpenContactForm(false)}
+        />
       </Box>
-      <ContactEmailDialog
-        open={openContactForm}
-        handleClose={() => setOpenContactForm(false)}
-      />
-    </Box>
+    </MainLayout>
   )
 }
 

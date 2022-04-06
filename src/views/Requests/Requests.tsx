@@ -18,6 +18,7 @@ import CustomInput from 'components/CustomInput'
 import DataRow from './components/DataRow'
 import CustomPagination from 'components/CustomPagination'
 import ContactEmailDialog from 'components/ContactEmailDialog'
+import MainLayout from 'components/MainLayout'
 
 import SearchIcon from 'assets/img/search.png'
 
@@ -130,140 +131,142 @@ const Requests: VFC = () => {
   }, [])
 
   return (
-    <Box className={classes.wrapper}>
-      <Header />
-      <Box className={classes.contents}>
-        <Box className={classes.tableSection}>
-          <Box className={clsx(classes.dropdown, classes.groupAction)}>
-            <Box className={classes.mobileSelectAll}>
-              <Checkbox
-                checked={selectAll}
-                onChange={handleSelectAll}
-                color="primary"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-              />
+    <MainLayout>
+      <Box className={classes.wrapper}>
+        <Header />
+        <Box className={classes.contents}>
+          <Box className={classes.tableSection}>
+            <Box className={clsx(classes.dropdown, classes.groupAction)}>
+              <Box className={classes.mobileSelectAll}>
+                <Checkbox
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+              </Box>
+              <Box className={classes.conditionDropdown}>
+                <InputLabel>Acciones agrupadas</InputLabel>
+                <FormControl variant="outlined">
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={condition}
+                    onChange={handleChangeCondition}
+                  >
+                    <MenuItem value='ALL'>ALL</MenuItem>
+                    <MenuItem value='APROBADO'>APROBADO</MenuItem>
+                    <MenuItem value='PENDIENTE'>PENDIENTE</MenuItem>
+                    <MenuItem value='RECHAZADO'>RECHAZADO</MenuItem>
+                    <MenuItem value='CONTACTADO'>CONTACTADO</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
             </Box>
-            <Box className={classes.conditionDropdown}>
-              <InputLabel>Acciones agrupadas</InputLabel>
-              <FormControl variant="outlined">
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={condition}
-                  onChange={handleChangeCondition}
-                >
-                  <MenuItem value='ALL'>ALL</MenuItem>
-                  <MenuItem value='APROBADO'>APROBADO</MenuItem>
-                  <MenuItem value='PENDIENTE'>PENDIENTE</MenuItem>
-                  <MenuItem value='RECHAZADO'>RECHAZADO</MenuItem>
-                  <MenuItem value='CONTACTADO'>CONTACTADO</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
 
-          <Box className={classes.tableHeader} display='flex'>
-            <Box className={clsx(classes.selectAll, classes.checkbox)} width='66px'>
-              <Checkbox
-                checked={selectAll}
-                onChange={handleSelectAll}
-                color="primary"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-              />
+            <Box className={classes.tableHeader} display='flex'>
+              <Box className={clsx(classes.selectAll, classes.checkbox)} width='66px'>
+                <Checkbox
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+              </Box>
+              <Box width='calc((100% - 122px) * 0.15)' className={clsx(classes.headerCell)}>
+                <CustomInput
+                  name='id'
+                  labelText='ID SOLICITUD'
+                  placeholder=''
+                  fullWidth
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={SearchIcon} alt="Search" />
+                    </InputAdornment>
+                  }
+                />
+              </Box>
+              <Box width='calc((100% - 122px) * 0.20)' className={classes.headerCell}>
+                <CustomInput
+                  name='clientName'
+                  labelText='Nombre cliente'
+                  placeholder=''
+                  fullWidth
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <img src={SearchIcon} alt="Search" />
+                    </InputAdornment>
+                  }
+                />
+              </Box>
+              <Box width='calc((100% - 122px) * 0.12)' className={clsx(classes.dataLabel, classes.headerCell)}>
+                <InputLabel>Fecha solicitud</InputLabel>
+              </Box>
+              <Box width='calc((100% - 122px) * 0.1)' className={clsx(classes.dataLabel, classes.headerCell)}>
+                <InputLabel>ESTADO</InputLabel>
+              </Box>
+              <Box width='calc((100% - 122px) * 0.1)' className={clsx(classes.dataLabel, classes.headerCell)}>
+                <InputLabel>Vence EN</InputLabel>
+              </Box>
+
+              <Box width='calc((100% - 122px) * 0.23)' className={clsx(classes.dropdown, classes.offerDropdown, classes.headerCell)}>
+                <InputLabel>OFERTA</InputLabel>
+                <FormControl variant="outlined">
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={offer}
+                    onChange={handleSelectOffer}
+                  >
+                    <MenuItem value='default' style={{ display: 'none' }}>Seleccionar</MenuItem>
+                    <MenuItem value='Oferta 1'>Oferta 1</MenuItem>
+                    <MenuItem value='Oferta 2'>Oferta 2</MenuItem>
+                    <MenuItem value='Oferta 3'>Oferta 3</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
             </Box>
-            <Box width='calc((100% - 122px) * 0.15)' className={clsx(classes.headerCell)}>
-              <CustomInput
-                name='id'
-                labelText='ID SOLICITUD'
-                placeholder=''
-                fullWidth
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src={SearchIcon} alt="Search" />
-                  </InputAdornment>
+
+            <Box className={classes.tableBody}>
+              <Box className={classes.tableBodyContent}>
+                {
+                  searchResult.length === 0 ? (
+                    <Box className={classes.dataRow} display='flex' justifyContent='center'>
+                      <Typography variant='body1' align='center'>
+                        There aren't any data
+                      </Typography>
+                    </Box>
+                  ) : slice(searchResult, startIndex, endIndex).map((data) => (
+                    <DataRow
+                      request={data}
+                      key={data.id}
+                      selected={selectedIds.includes(data.id)}
+                      handleSelectOne={handleSelectOne}
+                      handleOpenContact={() => setOpenContactForm(true)}
+                    />
+                  ))
                 }
+              </Box>
+            </Box>
+
+            <Box className={classes.tableFooter} display='flex' justifyContent='center'>
+              <CustomPagination
+                count={Math.ceil(searchResult.length / pageSize)}
+                handleChange={onChangePagination}
+                page={page}
               />
             </Box>
-            <Box width='calc((100% - 122px) * 0.20)' className={classes.headerCell}>
-              <CustomInput
-                name='clientName'
-                labelText='Nombre cliente'
-                placeholder=''
-                fullWidth
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <img src={SearchIcon} alt="Search" />
-                  </InputAdornment>
-                }
-              />
-            </Box>
-            <Box width='calc((100% - 122px) * 0.12)' className={clsx(classes.dataLabel, classes.headerCell)}>
-              <InputLabel>Fecha solicitud</InputLabel>
-            </Box>
-            <Box width='calc((100% - 122px) * 0.1)' className={clsx(classes.dataLabel, classes.headerCell)}>
-              <InputLabel>ESTADO</InputLabel>
-            </Box>
-            <Box width='calc((100% - 122px) * 0.1)' className={clsx(classes.dataLabel, classes.headerCell)}>
-              <InputLabel>Vence EN</InputLabel>
-            </Box>
-
-            <Box width='calc((100% - 122px) * 0.23)' className={clsx(classes.dropdown, classes.offerDropdown, classes.headerCell)}>
-              <InputLabel>OFERTA</InputLabel>
-              <FormControl variant="outlined">
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={offer}
-                  onChange={handleSelectOffer}
-                >
-                  <MenuItem value='default' style={{ display: 'none' }}>Seleccionar</MenuItem>
-                  <MenuItem value='Oferta 1'>Oferta 1</MenuItem>
-                  <MenuItem value='Oferta 2'>Oferta 2</MenuItem>
-                  <MenuItem value='Oferta 3'>Oferta 3</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Box>
-
-          <Box className={classes.tableBody}>
-            <Box className={classes.tableBodyContent}>
-              {
-                searchResult.length === 0 ? (
-                  <Box className={classes.dataRow} display='flex' justifyContent='center'>
-                    <Typography variant='body1' align='center'>
-                      There aren't any data
-                    </Typography>
-                  </Box>
-                ) : slice(searchResult, startIndex, endIndex).map((data) => (
-                  <DataRow
-                    request={data}
-                    key={data.id}
-                    selected={selectedIds.includes(data.id)}
-                    handleSelectOne={handleSelectOne}
-                    handleOpenContact={() => setOpenContactForm(true)}
-                  />
-                ))
-              }
-            </Box>
-          </Box>
-
-          <Box className={classes.tableFooter} display='flex' justifyContent='center'>
-            <CustomPagination
-              count={Math.ceil(searchResult.length / pageSize)}
-              handleChange={onChangePagination}
-              page={page}
-            />
           </Box>
         </Box>
-      </Box>
 
-      <ContactEmailDialog
-        open={openContactForm}
-        handleClose={() => setOpenContactForm(false)}
-      />
-    </Box>
+        <ContactEmailDialog
+          open={openContactForm}
+          handleClose={() => setOpenContactForm(false)}
+        />
+      </Box>
+    </MainLayout>
   )
 }
 

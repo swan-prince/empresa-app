@@ -15,6 +15,7 @@ import CustomButton from 'components/CustomButton'
 import FileDropzone from 'components/FileDropzone'
 import CustomInput from 'components/CustomInput'
 import AlertSnackbar from 'components/AlertSnackbar'
+import MainLayout from 'components/MainLayout'
 
 import { UploadedFile, OfferForm } from 'typings'
 
@@ -57,7 +58,7 @@ const AddOffer: FC = () => {
   }
 
   return (
-    <Box>
+    <MainLayout>
       <Box className={clsx(classes.contentSection, classes.addOffer)}>
         <Box className={classes.contents}>
           <Box className={classes.titleSection} display='flex' justifyContent='space-between' flexWrap='wrap' alignItems='center'>
@@ -249,7 +250,7 @@ const AddOffer: FC = () => {
         handleClose={() => setOpenAlert(false)}
         message='¡Gracias! Tu oferta ha sido enviada a revisión para ser publicada'
       />
-    </Box>
+    </MainLayout>
   )
 }
 

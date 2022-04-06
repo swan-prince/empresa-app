@@ -11,6 +11,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import CustomButton from 'components/CustomButton'
 import ChartWidget from './components/ChartWidget'
+import MainLayout from 'components/MainLayout'
 
 import RequestImg from 'assets/img/awaiting-requests.png'
 
@@ -26,53 +27,55 @@ const Dashboard: FC = () => {
   const [tab, setTab] = useState('day')
 
   return (
-    <Box className={classes.wrapper}>
-      <Typography variant='h1'>
-        ¡Hola <span>Kredito!</span>
-      </Typography>
-      <Box className={classes.contents}>
-        <Box className={classes.dateTab}>
-          <ButtonGroup color="primary" aria-label="outlined primary button group">
-            <Button onClick={() => setTab('day')} className={clsx({ [classes.activeTab]: tab === 'day' })}>Día</Button>
-            <Button onClick={() => setTab('week')} className={clsx({ [classes.activeTab]: tab === 'week' })}>Semana</Button>
-            <Button onClick={() => setTab('month')} className={clsx({ [classes.activeTab]: tab === 'month' })}>Mes</Button>
-            <Button onClick={() => setTab('year')} className={clsx({ [classes.activeTab]: tab === 'year' })}>Año</Button>
-          </ButtonGroup>
-        </Box>
-        <Box className={classes.cardList} justifyContent='space-between'>
-          <Box className={classes.card}>
-            <Box className={classes.cardContent}>
-              <Box className={classes.cardImg} display='flex' alignItems='center' justifyContent='center'>
-                <img src={RequestImg} alt="Request" width='78%' />
+    <MainLayout>
+      <Box className={classes.wrapper}>
+        <Typography variant='h1'>
+          ¡Hola <span>Kredito!</span>
+        </Typography>
+        <Box className={classes.contents}>
+          <Box className={classes.dateTab}>
+            <ButtonGroup color="primary" aria-label="outlined primary button group">
+              <Button onClick={() => setTab('day')} className={clsx({ [classes.activeTab]: tab === 'day' })}>Día</Button>
+              <Button onClick={() => setTab('week')} className={clsx({ [classes.activeTab]: tab === 'week' })}>Semana</Button>
+              <Button onClick={() => setTab('month')} className={clsx({ [classes.activeTab]: tab === 'month' })}>Mes</Button>
+              <Button onClick={() => setTab('year')} className={clsx({ [classes.activeTab]: tab === 'year' })}>Año</Button>
+            </ButtonGroup>
+          </Box>
+          <Box className={classes.cardList} justifyContent='space-between'>
+            <Box className={classes.card}>
+              <Box className={classes.cardContent}>
+                <Box className={classes.cardImg} display='flex' alignItems='center' justifyContent='center'>
+                  <img src={RequestImg} alt="Request" width='78%' />
+                </Box>
+                <Typography variant='body1'>
+                  SOLICITUDES PENDIENTES
+                </Typography>
+                <Typography variant='h5'>
+                  30
+                </Typography>
               </Box>
-              <Typography variant='body1'>
-                SOLICITUDES PENDIENTES
-              </Typography>
-              <Typography variant='h5'>
-                30
-              </Typography>
+            </Box>
+            <Box className={classes.card}>
+              <Box className={classes.cardContent}>
+                <Box className={classes.cardChart}>
+                  <ChartWidget />
+                </Box>
+                <Typography variant='body1'>
+                  TOTAL DE SOLICITUDES
+                </Typography>
+                <Typography variant='h5'>
+                  48
+                </Typography>
+              </Box>
             </Box>
           </Box>
-          <Box className={classes.card}>
-            <Box className={classes.cardContent}>
-              <Box className={classes.cardChart}>
-                <ChartWidget />
-              </Box>
-              <Typography variant='body1'>
-                TOTAL DE SOLICITUDES
-              </Typography>
-              <Typography variant='h5'>
-                48
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
 
-        <CustomButton className={classes.detailBtn} onClick={() => navigate('/admin/requests')}>
-          Ver solicitudes
-        </CustomButton>
+          <CustomButton className={classes.detailBtn} onClick={() => navigate('/admin/requests')}>
+            Ver solicitudes
+          </CustomButton>
+        </Box>
       </Box>
-    </Box>
+    </MainLayout>
   )
 }
 
