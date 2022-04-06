@@ -32,7 +32,7 @@ const ClientDetail: FC = () => {
   useEffect(() => {
     const clientData = dummyData.find((data) => data.id === parseInt(id ?? '0'))
     setClient(clientData)
-  }, [])
+  }, [id])
 
   return (
     <Box>

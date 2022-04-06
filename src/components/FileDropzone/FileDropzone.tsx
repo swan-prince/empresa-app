@@ -42,7 +42,7 @@ const FileDropzone: FC<Props> = (props) => {
       })
     }
     reader.readAsArrayBuffer(acceptedFiles[0])
-  }, [])
+  }, [uploadFile])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
