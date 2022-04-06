@@ -12,6 +12,8 @@ import CustomInput from 'components/CustomInput'
 import CustomButton from 'components/CustomButton'
 import ConfirmPasswordDialog from 'components/ConfirmPasswordDialog'
 
+import AuthLayout from 'components/AuthLayout'
+
 import { AuthForm } from 'typings'
 
 import styles from 'assets/jss/views/authStyles'
@@ -37,7 +39,7 @@ const ResetPassword: VFC = () => {
   }
 
   return (
-    <>
+    <AuthLayout>
       <Box>
         <Formik
           initialValues={{ ...defaultValues }}
@@ -71,7 +73,7 @@ const ResetPassword: VFC = () => {
         open={openDialog}
         handleClose={() => setOpenDialog(false)}
       />
-    </>
+    </AuthLayout>
   )
 }
 

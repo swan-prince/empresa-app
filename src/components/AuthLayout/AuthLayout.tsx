@@ -1,12 +1,8 @@
 import React, { FC } from 'react'
-import { Routes, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core'
 
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
-
-import Login from 'views/Login'
-import ResetPassword from 'views/ResetPassword'
 
 import LogoImg from 'assets/img/logo.png'
 import WhiteLogo from 'assets/img/white-logo.png'
@@ -16,9 +12,15 @@ import styles from 'assets/jss/components/authLayoutStyles'
 
 const useStyles = makeStyles(styles)
 
-const AuthLayout: FC = () => {  
+interface Props {
+  children: React.ReactNode
+}
+
+const AuthLayout: FC<Props> = (props) => {
 
   const classes = useStyles()
+
+  const { children } = props
 
   return (
     <Box className={classes.wrapper} display='flex'>
@@ -43,12 +45,8 @@ const AuthLayout: FC = () => {
         <Box className={classes.rightContents}>
           <Typography variant='body1' align='center' className={classes.welcomeText}>
             ¡Bienvenid@ al PANEL DEl <br />Kit digitalízate!
-          </Typography>         
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/*" element={<Login />} />
-          </Routes>
+          </Typography>
+          {children}
         </Box>
       </Box>
     </Box>

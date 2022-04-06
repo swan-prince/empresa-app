@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import CustomInput from 'components/CustomInput'
 import CustomButton from 'components/CustomButton'
+import AuthLayout from 'components/AuthLayout'
 
 import { AuthForm } from 'typings'
 import styles from 'assets/jss/views/authStyles'
@@ -45,63 +46,65 @@ const Login: VFC = () => {
   }
 
   return (
-    <Box>
-      <Formik
-        initialValues={{ ...defaultValues }}
-        validationSchema={LoginFormSchema}
-        onSubmit={onHandleSubmit}
-      >
-        {
-          ({ errors, handleChange, handleSubmit, touched }) => (
-            <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-              <Typography variant='body1' className={classes.note}>
-                Ingresa tus datos
-              </Typography>
-              <Box className={classes.company}>
-                <CustomInput
-                  name='company'
-                  labelText='RUT EMPRESA'
-                  placeholder=''
-                  fullWidth
-                  onChange={handleChange}
-                  error={Boolean(touched.company && errors.company)}
-                />
-              </Box>
-              <Box className={classes.loginPassword}>
-                <CustomInput
-                  name='password'
-                  labelText='CONTRASEÑA'
-                  placeholder=''
-                  fullWidth
-                  onChange={handleChange}
-                  error={Boolean(touched.password && errors.password)}
-                  inputProps={{
-                    type: showPassword ? 'text' : 'password'
-                  }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </Box>
-              <Box className={classes.forgotLink}>
-                <Link href='/auth/reset-password' onClick={(e) => { e.preventDefault(); navigate('/auth/reset-password') }}>
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Box>
-              <CustomButton endIcon={<ArrowRightAltIcon />} className={classes.enterBtn} type='submit'>
-                Entrar
-              </CustomButton>
-            </form>
-          )}
-      </Formik>
-    </Box>
+    <AuthLayout>
+      <Box>
+        <Formik
+          initialValues={{ ...defaultValues }}
+          validationSchema={LoginFormSchema}
+          onSubmit={onHandleSubmit}
+        >
+          {
+            ({ errors, handleChange, handleSubmit, touched }) => (
+              <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                <Typography variant='body1' className={classes.note}>
+                  Ingresa tus datos
+                </Typography>
+                <Box className={classes.company}>
+                  <CustomInput
+                    name='company'
+                    labelText='RUT EMPRESA'
+                    placeholder=''
+                    fullWidth
+                    onChange={handleChange}
+                    error={Boolean(touched.company && errors.company)}
+                  />
+                </Box>
+                <Box className={classes.loginPassword}>
+                  <CustomInput
+                    name='password'
+                    labelText='CONTRASEÑA'
+                    placeholder=''
+                    fullWidth
+                    onChange={handleChange}
+                    error={Boolean(touched.password && errors.password)}
+                    inputProps={{
+                      type: showPassword ? 'text' : 'password'
+                    }}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </Box>
+                <Box className={classes.forgotLink}>
+                  <Link href='/auth/reset-password' onClick={(e) => { e.preventDefault(); navigate('/auth/reset-password') }}>
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </Box>
+                <CustomButton endIcon={<ArrowRightAltIcon />} className={classes.enterBtn} type='submit'>
+                  Entrar
+                </CustomButton>
+              </form>
+            )}
+        </Formik>
+      </Box>
+    </AuthLayout>
   )
 }
 
